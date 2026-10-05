@@ -25,6 +25,8 @@
             pkgs.gopls
             pkgs.pinentry_mac
             pkgs.tree-sitter
+            pkgs.ripgrep
+            pkgs.rustup
           ];
 
         homebrew = {
