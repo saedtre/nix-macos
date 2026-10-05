@@ -27,6 +27,7 @@
             pkgs.tree-sitter
             pkgs.ripgrep
             pkgs.rustup
+            pkgs.emacs
           ];
 
         homebrew = {
