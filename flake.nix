@@ -31,6 +31,7 @@
             pkgs.ollama
             pkgs.claude-code
             pkgs.python3
+            pkgs.opencode
           ];
 
         homebrew = {
