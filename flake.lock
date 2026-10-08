@@ -76,7 +76,24 @@
       "inputs": {
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "vllm-metal": "vllm-metal"
+      }
+    },
+    "vllm-metal": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791440014,
+        "narHash": "sha256-esYJ1HIleFx1iSw67phJeJpZAtnBioeondWKjFZ/qao=",
+        "owner": "vllm-project",
+        "repo": "vllm-metal",
+        "rev": "94ce7d60d224c81b91362f000d0d0318e36e84f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vllm-project",
+        "repo": "vllm-metal",
+        "type": "github"
       }
     }
   },

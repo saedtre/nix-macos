@@ -6,9 +6,13 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    vllm-metal = {
+      url = "github:vllm-project/vllm-metal";
+      flake = false;
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, vllm-metal }:
     let
       configuration = { pkgs, config, ... }: {
         # List packages installed in system profile. To search by name, run:
@@ -36,6 +40,8 @@
 
         homebrew = {
           enable = true;
+          taps = builtins.attrNames config.nix-homebrew.taps;
+          brews = [ "vllm-project/vllm-metal/vllm-metal" ];
 
           casks = [
             "hammerspoon"
@@ -85,6 +91,10 @@
               # Apple Silicon only
               enableRosetta = true;
               user = "sam";
+
+              taps = {
+                "vllm-project/homebrew-vllm-metal" = vllm-metal;
+              };
             };
           }
         ];
