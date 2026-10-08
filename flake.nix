@@ -30,6 +30,7 @@
             pkgs.emacs
             pkgs.ollama
             pkgs.claude-code
+            pkgs.python3
           ];
 
         homebrew = {
