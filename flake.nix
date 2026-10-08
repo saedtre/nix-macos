@@ -28,6 +28,7 @@
             pkgs.ripgrep
             pkgs.rustup
             pkgs.emacs
+            pkgs.ollama
           ];
 
         homebrew = {
