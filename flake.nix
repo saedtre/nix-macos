@@ -36,6 +36,7 @@
             pkgs.claude-code
             pkgs.python3
             pkgs.opencode
+            pkgs.uv
           ];
 
         homebrew = {
