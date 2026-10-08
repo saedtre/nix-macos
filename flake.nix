@@ -29,6 +29,7 @@
             pkgs.rustup
             pkgs.emacs
             pkgs.ollama
+            pkgs.claude-code
           ];
 
         homebrew = {
