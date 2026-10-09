@@ -37,6 +37,7 @@
             pkgs.python3
             pkgs.opencode
             pkgs.uv
+            pkgs.codex
           ];
 
         homebrew = {
