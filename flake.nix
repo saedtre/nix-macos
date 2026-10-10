@@ -38,6 +38,8 @@
             pkgs.opencode
             pkgs.uv
             pkgs.codex
+            pkgs.cmake
+            pkgs.gcc
           ];
 
         homebrew = {
