@@ -40,6 +40,7 @@
             pkgs.codex
             pkgs.cmake
             pkgs.gcc
+            pkgs.syncthing
           ];
 
         homebrew = {
@@ -67,6 +68,21 @@
         # Necessary for using flakes on this system.
         nix.settings.experimental-features = "nix-command flakes";
 
+        launchd.user.agents.syncthing = {
+          serviceConfig = {
+            ProgramArguments = [
+              "${pkgs.syncthing}/bin/syncthing"
+              "serve"
+              "--no-browser"
+              "--no-restart"
+            ];
+            KeepAlive = true;
+            RunAtLoad = true;
+            ProcessType = "Background";
+            StandardOutPath = "/tmp/syncthing.log";
+            StandardErrorPath = "/tmp/syncthing.err.log";
+          };
+        };
 
         # Enable alternative shell support in nix-darwin.
         # programs.fish.enable = true;
