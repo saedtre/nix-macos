@@ -38,15 +38,18 @@
             pkgs.opencode
             pkgs.uv
             pkgs.codex
-            pkgs.cmake
-            pkgs.gcc
             pkgs.syncthing
+            pkgs.tree
           ];
 
         homebrew = {
           enable = true;
           taps = builtins.attrNames config.nix-homebrew.taps;
-          brews = [ "vllm-project/vllm-metal/vllm-metal" ];
+          brews = [ 
+            "vllm-project/vllm-metal/vllm-metal"
+            "cmake"
+            "pkg-config"
+          ];
 
           casks = [
             "hammerspoon"
