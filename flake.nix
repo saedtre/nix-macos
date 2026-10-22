@@ -42,6 +42,8 @@
             pkgs.tree
             pkgs.librewolf
             pkgs.inetutils
+            pkgs.fastfetch
+            pkgs.cowsay
           ];
 
         homebrew = {
