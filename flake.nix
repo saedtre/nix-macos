@@ -40,6 +40,7 @@
             pkgs.codex
             pkgs.syncthing
             pkgs.tree
+            pkgs.librewolf
           ];
 
         homebrew = {
