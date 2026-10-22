@@ -41,6 +41,7 @@
             pkgs.syncthing
             pkgs.tree
             pkgs.librewolf
+            pkgs.inetutils
           ];
 
         homebrew = {
