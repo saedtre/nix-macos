@@ -78,6 +78,7 @@
             "discord"
             "iina"
             "the-unarchiver"
+            "steam"
           ];
           onActivation.cleanup = "zap";
         };
