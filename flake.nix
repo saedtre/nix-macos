@@ -19,6 +19,18 @@
         # $ nix-env -qaP | grep wget
         system.primaryUser = "sam";
         nixpkgs.config.allowUnfree = true;
+        # semgrep pins pyjwt~=2.13.0 but nixpkgs ships 2.14.0; relax the check.
+        nixpkgs.overlays = [
+          (final: prev: {
+            pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+              (pyfinal: pyprev: {
+                semgrep = pyprev.semgrep.overridePythonAttrs (old: {
+                  pythonRelaxDeps = (old.pythonRelaxDeps or [ ]) ++ [ "pyjwt" ];
+                });
+              })
+            ];
+          })
+        ];
         nix.enable = false;
         environment.systemPackages =
           [ pkgs.neovim
@@ -44,6 +56,7 @@
             pkgs.inetutils
             pkgs.fastfetch
             pkgs.cowsay
+            pkgs.semgrep
           ];
 
         homebrew = {
