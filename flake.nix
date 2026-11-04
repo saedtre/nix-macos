@@ -6,13 +6,15 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     vllm-metal = {
       url = "github:vllm-project/vllm-metal";
       flake = false;
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, vllm-metal }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, home-manager, vllm-metal }:
     let
       configuration = { pkgs, config, ... }: {
         # List packages installed in system profile. To search by name, run:
@@ -34,6 +36,7 @@
         nix.enable = false;
         environment.systemPackages =
           [ pkgs.neovim
+            pkgs.autoconf
             pkgs.mkalias
             pkgs.obsidian
             pkgs.zed-editor
@@ -126,6 +129,21 @@
         modules = [ 
           configuration
           nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+          {
+            users.users.sam.home = "/Users/sam";
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.sam = { pkgs, ... }: {
+                # Prebuilt epdfinfo for Doom's pdf-tools, so Emacs never compiles it.
+                home.file.".local/bin/epdfinfo".source =
+                  let pdf-tools = pkgs.emacsPackages.pdf-tools;
+                  in "${pdf-tools}/share/emacs/site-lisp/elpa/pdf-tools-${pdf-tools.version}/epdfinfo";
+                home.stateVersion = "26.11";
+              };
+            };
+          }
           {
             nix-homebrew = {
               enable = true;
