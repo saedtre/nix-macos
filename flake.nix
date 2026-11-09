@@ -60,7 +60,14 @@
             pkgs.fastfetch
             pkgs.cowsay
             pkgs.semgrep
+            pkgs.docker
+            pkgs.docker-compose
+            pkgs.colima
+            pkgs.vscode
           ];
+
+        # Point the docker CLI at the colima-managed daemon (see launchd agent below).
+        environment.variables.DOCKER_HOST = "unix:///Users/sam/.colima/default/docker.sock";
 
         homebrew = {
           enable = true;
@@ -105,6 +112,32 @@
             ProcessType = "Background";
             StandardOutPath = "/tmp/syncthing.log";
             StandardErrorPath = "/tmp/syncthing.err.log";
+          };
+        };
+
+        # Docker daemon runs inside a colima Linux VM, started at login and kept alive.
+        launchd.user.agents.colima = {
+          serviceConfig = {
+            ProgramArguments = [
+              "${pkgs.colima}/bin/colima"
+              "start"
+              "--foreground"
+              "--runtime" "docker"
+              "--vm-type" "vz"
+              "--vz-rosetta"
+              "--cpus" "4"
+              "--memory" "8"
+              "--disk" "100"
+            ];
+            EnvironmentVariables = {
+              HOME = "/Users/sam";
+              PATH = "${pkgs.docker}/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+            };
+            KeepAlive = true;
+            RunAtLoad = true;
+            ProcessType = "Background";
+            StandardOutPath = "/tmp/colima.log";
+            StandardErrorPath = "/tmp/colima.err.log";
           };
         };
 
